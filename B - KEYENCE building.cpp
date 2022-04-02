@@ -10,7 +10,7 @@ using namespace std;
 #define mod 1000000007
 #define fr first
 #define se second
-
+ 
 #define vi vector <int>
 #define vb vector <bool>
 #define vl vector <ll>
@@ -26,48 +26,43 @@ using namespace std;
 #define mapi map <int, int>
 #define mults multiset<ll>
 #define vs vector<string>
-
+ 
 #define for0(i,n) for (ll i=0;i<n;i++)
 #define for1(i,n) for (ll i=1;i<=n;i++)
 #define __lcm(a, b) ((a * b) / __gcd(a, b))
-
+ 
 #define all(v) (v).begin(), (v).end()
 #define rall(v) (v).rbegin(), (v).rend()
-
+ 
 #define Fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 signed main()
 {
     Fastio;
-    int t;
-    cin >> t;
-    while(t--)
+    int n;
+    cin >> n;
+    vi v;
+    for0(i, n)
     {
-        int n;
-        cin >> n;
-        vvi pr(2001);
-        mapi mapp;
-        for0(i, n)
+        int val;
+        cin >> val;
+        v.pb(val);
+    }
+    sort(all(v));
+    for(int i = 1; i <= 1000; i++)
+    {
+        for(int j = 1; j <= 1000; j++)
         {
-            int val;
-            cin >> val;
-            mapp[val]++;
-            pr[0].pb(val);
-        }
-        for1(i, 2000)
-        {
-            for0(j, n) pr[i].pb(mapp[pr[i - 1][j]]);
-            mapp.clear();
-            for0(j, n) mapp[pr[i][j]]++;
-        }
-        int q;
-        cin >> q;
-        while(q--)
-        {
-            ll id, k;
-            cin >> id >> k;
-            if(k >= 2000) cout << pr[2000][id - 1] << endl;
-            else cout << pr[k][id - 1] << endl;
+            int val = (4 * i * j) + (3 * i) + (3 * j);
+            for0(k, v.sz)
+            {
+                if(v[k] == val) 
+                {
+                    v.erase(v.begin() + k);
+                    k -= 1;
+                }
+            }
         }
     }
+    cout << v.sz << endl;
     return 0;
 }

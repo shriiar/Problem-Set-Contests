@@ -43,31 +43,22 @@ signed main()
     while(t--)
     {
         int n;
-        cin >> n;
-        vvi pr(2001);
-        mapi mapp;
-        for0(i, n)
+        string s;
+        cin >> n >> s;
+        vs v;
+        bool f = 0;
+        v.pb("aa"), v.pb("aba"), v.pb("aca"), v.pb("abca"), v.pb("acba"), v.pb("abbacca"), v.pb("accabba");
+        for0(i, v.sz)
         {
-            int val;
-            cin >> val;
-            mapp[val]++;
-            pr[0].pb(val);
+            size_t found = s.find(v[i]);
+            if (found != string::npos)
+            {
+                cout << v[i].sz << endl;
+                f = 1;
+                break;
+            }
         }
-        for1(i, 2000)
-        {
-            for0(j, n) pr[i].pb(mapp[pr[i - 1][j]]);
-            mapp.clear();
-            for0(j, n) mapp[pr[i][j]]++;
-        }
-        int q;
-        cin >> q;
-        while(q--)
-        {
-            ll id, k;
-            cin >> id >> k;
-            if(k >= 2000) cout << pr[2000][id - 1] << endl;
-            else cout << pr[k][id - 1] << endl;
-        }
+        if(!f) cout << -1 << endl;
     }
     return 0;
 }

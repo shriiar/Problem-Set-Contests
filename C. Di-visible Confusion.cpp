@@ -42,32 +42,35 @@ signed main()
     cin >> t;
     while(t--)
     {
-        int n;
+        ll n;
         cin >> n;
-        vvi pr(2001);
-        mapi mapp;
+        vl v;
+        bool f = 0, h = 1;
         for0(i, n)
         {
-            int val;
+            ll val;
             cin >> val;
-            mapp[val]++;
-            pr[0].pb(val);
+            v.pb(val);
         }
-        for1(i, 2000)
+        for0(i, n)
         {
-            for0(j, n) pr[i].pb(mapp[pr[i - 1][j]]);
-            mapp.clear();
-            for0(j, n) mapp[pr[i][j]]++;
+            f = 0;
+            for(int j = 2; j <= i + 2; j++)
+            {
+                if(v[i] % j != 0)
+                {
+                    f = 1;
+                    break;
+                }
+            }
+            if(!f) 
+            {
+                h = 0;
+                break;
+            }
         }
-        int q;
-        cin >> q;
-        while(q--)
-        {
-            ll id, k;
-            cin >> id >> k;
-            if(k >= 2000) cout << pr[2000][id - 1] << endl;
-            else cout << pr[k][id - 1] << endl;
-        }
+        if(!h) cout << "NO" << endl;
+        else cout << "YES" << endl;
     }
     return 0;
 }

@@ -42,32 +42,63 @@ signed main()
     cin >> t;
     while(t--)
     {
-        int n;
+        int n, val = 1;
         cin >> n;
-        vvi pr(2001);
-        mapi mapp;
+        vi v, tb, tr;
         for0(i, n)
         {
             int val;
             cin >> val;
-            mapp[val]++;
-            pr[0].pb(val);
+            v.pb(val);
         }
-        for1(i, 2000)
+        string s;
+        cin >> s;
+        bool f = 1;
+        for0(i, n)
         {
-            for0(j, n) pr[i].pb(mapp[pr[i - 1][j]]);
-            mapp.clear();
-            for0(j, n) mapp[pr[i][j]]++;
+            if(s[i] == 'B') 
+            {
+                if(v[i] <= 0) f = 0;
+                tb.pb(v[i]);
+            }
+            else
+            {
+                if(v[i] > n) f = 0;
+                tr.pb(v[i]);
+            }
         }
-        int q;
-        cin >> q;
-        while(q--)
+        if(!f) 
         {
-            ll id, k;
-            cin >> id >> k;
-            if(k >= 2000) cout << pr[2000][id - 1] << endl;
-            else cout << pr[k][id - 1] << endl;
+            cout << "NO" << endl;
+            continue;
         }
-    }
+        sort(all(tr));
+        sort(all(tb));
+        for0(i, tb.sz)
+        {
+            if(val > tb[i])
+            {
+                f = 0;
+                break;
+            }
+            val++;
+        }
+        if(!f) 
+        {
+            cout << "NO" << endl;
+            continue;
+        }
+        for0(i, tr.sz)
+        {
+            if(val < tr[i])
+            {
+                f = 0;
+                break;
+            }
+            val++;
+        }
+        if(f) cout << "YES" << endl;
+        else cout << "NO" << endl;
+    }   
     return 0;
 }
